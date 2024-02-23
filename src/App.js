@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
 function App() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!firstName || !lastName) {
+      alert("Please fill out both fields.");
+      return;
+    }
+
+    setFullName(`${firstName} ${lastName}`);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <h1>Full Name Display</h1>
+      <form onSubmit={handleSubmit}>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          First Name:
+        <input
+          type="text"
+          id="firstName"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <p>
+          Last Name:
+        <input
+          type="text"
+          id="lastName"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
+        </p>
+        <button type="submit">Submit</button>
+      </form>
+
+      {fullName && <div>Full Name: {fullName}</div>}
     </div>
   );
 }
